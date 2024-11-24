@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
+    "deploy": "gh-pages -d public",
     "start": "http-server ./public -p 3000",
     "build": "tsc",
     "dev": "tsc --watch"
