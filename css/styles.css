@@ -1,6 +1,7 @@
 :root {
     --primary-color: #3498db;
-    --button-color: #e6e6e6;
+    --button-color: #dfdfdf;
+    --button-secondary-color: #b6b6b6;
     --button-accent-1-color: #3652b1;
     --button-accent-2-color: #e07f10;
     --font-size: 16px;
@@ -32,7 +33,7 @@ body {
 
 #button-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     gap: 1rem;
     width: min-content;
 }
@@ -53,19 +54,40 @@ body {
     color: black;
     font-size: var(--font-size);
     border-radius: var(--button-border-radius);
-    border: var(--button-border);
     width: var(--button-width) !important;
     height: var(--button-height) !important;
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
     cursor: pointer;
     user-select: none;
 }
 
+.button-spacer {
+    width: var(--button-width) !important;
+    height: var(--button-height) !important;
+}
+
 .button:hover {
     filter: brightness(0.95);
+}
+
+.button-wide {
+    width: 100% !important;
+    grid-column: span 2 !important;
+}
+
+.button-tall {
+    height: calc(var(--button-height) * 2 + 1rem + 2px) !important;
+    grid-row: span 2 !important;
+}
+
+.button-secondary {
+    background-color: var(--button-secondary-color);
+}
+
+.button-secondary:hover {
+    filter: brightness(1.10);
 }
 
 .button-accent-1 {
