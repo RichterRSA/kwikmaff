@@ -47,6 +47,14 @@ body {
     border-width: 2px;
     text-align: right;
     overflow: hidden;
+    position: relative;
+}
+
+#text-content {
+  display: inline-block;
+  text-align: left;
+  user-select: none;
+  cursor: text;
 }
 
 .button {
@@ -106,4 +114,24 @@ body {
 
 .button-accent-2:hover {
     filter: brightness(1.10);
+}
+
+.cursor {
+    display: inline-block;
+    width: 2px;
+    height: 1em;
+    background-color: black;
+    animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+
+    from,
+    to {
+        background-color: black;
+    }
+
+    50% {
+        background-color: transparent;
+    }
 }
