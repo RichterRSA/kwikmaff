@@ -4,9 +4,8 @@ import { NumberExpression } from "./NumberExpression.js";
 const operators = ["*", "/", "+", "-"];
 
 export class BasicExpression extends Expression {
-  lvalue: Number = NaN;
-  rvalue: Number = NaN;
-  operator: string = ".";
+  numbers: NumberExpression[] = [];
+  numOps: string[] = [];
 
   constructor() {
     super();
@@ -26,14 +25,15 @@ export class BasicExpression extends Expression {
       return false;
     }
 
-    let before = token.slice(0, operatorPosition);
-    let after = token.slice(operatorPosition + 1);
+    var array: string[] = token.split(/\*|\/|\+|\-/);
 
-    if (NumberExpression.canParse(before) && NumberExpression.canParse(after)) {
-      return true;
+    for (const element of array) {
+      if (!NumberExpression.canParse(element)) {
+        return false;
+      }
     }
 
-    return false;
+    return true;
   }
 
   parse(token: string): void {
@@ -54,45 +54,57 @@ export class BasicExpression extends Expression {
       return;
     }
 
-    let before = token.slice(0, operatorPosition);
-    let after = token.slice(operatorPosition + 1);
+    var array: string[] = token.split(/\*|\/|\+|\-/);
 
-    if (NumberExpression.canParse(before) && NumberExpression.canParse(after)) {
+    for (const element of array) {
       var ex = new NumberExpression();
-      ex.parse(before);
-      this.lvalue = ex.evaluate();
+      ex.parse(element);
+      this.numbers.push(ex);
+    }
 
-      ex = new NumberExpression();
-      ex.parse(after);
-      this.rvalue = ex.evaluate();
-
-      this.operator = token[operatorPosition];
+    for (let i = 0; i < token.length; i++) {
+      if (operators.includes(token[i])) {
+        this.numOps.push(token[i]);
+      }
     }
   }
 
   evaluate(): Number {
-    if (Number.isNaN(this.lvalue)) {
-      throw new Error("Left value is NaN");
+    // while (this.numOps.length > 0) {
+    //do multiplication and division first
+    for (let i = 0; i < this.numOps.length; i++) {
+      if (this.numOps[i] === "*" || this.numOps[i] === "/") {
+        if (this.numOps[i] === "*") {
+          this.numbers[i].value =
+            this.numbers[i].evaluate().valueOf() *
+            this.numbers[i + 1].evaluate().valueOf();
+        } else {
+          this.numbers[i].value =
+            this.numbers[i].evaluate().valueOf() *
+            this.numbers[i + 1].evaluate().valueOf();
+        }
+        this.numbers.splice(i + 1, 1);
+        this.numOps.splice(i, 1);
+        i--;
+      }
     }
-    if (Number.isNaN(this.rvalue)) {
-      throw new Error("Right value is NaN");
+    for (let i = 0; i < this.numOps.length; i++) {
+      if (this.numOps[i] === "+" || this.numOps[i] === "-") {
+        if (this.numOps[i] === "+") {
+          this.numbers[i].value =
+            this.numbers[i].evaluate().valueOf() +
+            this.numbers[i + 1].evaluate().valueOf();
+        } else {
+          this.numbers[i].value =
+            this.numbers[i].evaluate().valueOf() -
+            this.numbers[i + 1].evaluate().valueOf();
+        }
+        this.numbers.splice(i + 1, 1);
+        this.numOps.splice(i, 1);
+        i--;
+      }
     }
-
-    var result = this.lvalue.valueOf();
-    var rhand = this.rvalue.valueOf();
-
-    if (this.operator === "*") {
-      result *= rhand;
-    } else if (this.operator === "/") {
-      result /= rhand;
-    } else if (this.operator === "+") {
-      result += rhand;
-    } else if (this.operator === "-") {
-      result -= rhand;
-    } else {
-      return NaN;
-    }
-
-    return result;
+    return this.numbers[0].value;
+    // }
   }
 }

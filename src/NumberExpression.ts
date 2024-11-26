@@ -9,6 +9,9 @@ export class NumberExpression extends Expression {
   }
 
   static canParse(token: string): boolean {
+    if (token === "") {
+      return false;
+    }
     return !isNaN(Number(token));
   }
 
