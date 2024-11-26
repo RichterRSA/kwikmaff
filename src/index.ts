@@ -100,10 +100,6 @@ function button(input: string) {
   }
 }
 
-function onDisplayFocus() {
-  console.log("Focus gained!");
-}
-
 document.addEventListener("keydown", handleKeydown);
 
 function handleKeydown(event: KeyboardEvent) {
@@ -179,4 +175,3 @@ function updateDisplay(text: string) {
 }
 
 (window as any).button = button;
-(window as any).onDisplayFocus = onDisplayFocus;
