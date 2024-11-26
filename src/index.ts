@@ -1,3 +1,6 @@
+import { dot } from "node:test/reporters";
+import { MathContext } from "./MathContext.js";
+
 let cursorPosition = 0;
 
 function button(input: string) {
@@ -84,6 +87,34 @@ function button(input: string) {
     } else if (input === "AC") {
       newText = "0";
       cursorPosition = 1;
+    } else if (input == "lb") {
+      newText =
+        text.slice(0, cursorPosition) + "(" + text.slice(cursorPosition);
+      cursorPosition += 1;
+    } else if (input == "rb") {
+      newText =
+        text.slice(0, cursorPosition) + ")" + text.slice(cursorPosition);
+      cursorPosition += 1;
+    } else if (input == "dot") {
+      newText =
+        text.slice(0, cursorPosition) + "." + text.slice(cursorPosition);
+      cursorPosition += 1;
+    } else if (input == "plus") {
+      newText =
+        text.slice(0, cursorPosition) + "+" + text.slice(cursorPosition);
+      cursorPosition += 1;
+    } else if (input == "minus") {
+      newText =
+        text.slice(0, cursorPosition) + "-" + text.slice(cursorPosition);
+      cursorPosition += 1;
+    } else if (input == "multiply") {
+      newText =
+        text.slice(0, cursorPosition) + "*" + text.slice(cursorPosition);
+      cursorPosition += 1;
+    } else if (input == "divide") {
+      newText =
+        text.slice(0, cursorPosition) + "/" + text.slice(cursorPosition);
+      cursorPosition += 1;
     } else {
       if (text != "0") {
         newText =
@@ -97,6 +128,9 @@ function button(input: string) {
 
     // Update the display text with the cursor at the new position
     updateDisplay(newText);
+
+    MathContext.setContext(display?.textContent || "");
+    MathContext.parse();
   }
 }
 
