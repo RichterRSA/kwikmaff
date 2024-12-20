@@ -1,4 +1,4 @@
-import AbstractExpression from "./AbstractExpression";
+import AbstractExpression from "./AbstractExpression.js";
 
 abstract class CalculationExpression extends AbstractExpression {
   abstract calculate(): number;

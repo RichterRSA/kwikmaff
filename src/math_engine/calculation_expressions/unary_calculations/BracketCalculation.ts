@@ -1,7 +1,7 @@
-import AbstractExpression from "../../AbstractExpression";
-import CalculationExpression from "../../CalculationExpression";
-import NumberExpression from "../../NumberExpression";
-import UnaryCalculation from "../UnaryCalculation";
+import AbstractExpression from "../../AbstractExpression.js";
+import CalculationExpression from "../../CalculationExpression.js";
+import NumberExpression from "../../NumberExpression.js";
+import UnaryCalculation from "../UnaryCalculation.js";
 
 class BracketCalculation extends UnaryCalculation {
   constructor(expression: AbstractExpression) {

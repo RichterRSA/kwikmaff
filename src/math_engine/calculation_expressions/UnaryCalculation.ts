@@ -1,5 +1,5 @@
-import AbstractExpression from "../AbstractExpression";
-import CalculationExpression from "../CalculationExpression";
+import AbstractExpression from "../AbstractExpression.js";
+import CalculationExpression from "../CalculationExpression.js";
 
 abstract class UnaryCalculation extends CalculationExpression {
   protected value: AbstractExpression;

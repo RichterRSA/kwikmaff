@@ -1,5 +1,5 @@
-import AbstractExpression from "../AbstractExpression";
-import CalculationExpression from "../CalculationExpression";
+import AbstractExpression from "../AbstractExpression.js";
+import CalculationExpression from "../CalculationExpression.js";
 
 abstract class BinaryCalculation extends CalculationExpression {
   protected lhs: AbstractExpression;

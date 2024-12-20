@@ -1,7 +1,7 @@
-import AbstractExpression from "../../AbstractExpression";
-import CalculationExpression from "../../CalculationExpression";
-import NumberExpression from "../../NumberExpression";
-import BinaryCalculation from "../BinaryCalculation";
+import AbstractExpression from "../../AbstractExpression.js";
+import CalculationExpression from "../../CalculationExpression.js";
+import NumberExpression from "../../NumberExpression.js";
+import BinaryCalculation from "../BinaryCalculation.js";
 
 class PrimitiveCalculation extends BinaryCalculation {
   protected operator: string;

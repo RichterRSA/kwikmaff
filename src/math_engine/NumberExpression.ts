@@ -1,4 +1,4 @@
-import AbstractExpression from "./AbstractExpression";
+import AbstractExpression from "./AbstractExpression.js";
 
 class NumberExpression extends AbstractExpression {
   protected value: number;
