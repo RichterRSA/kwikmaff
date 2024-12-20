@@ -1,6 +1,6 @@
-import { dot } from "node:test/reporters";
-import NumberExpression from "./math_engine/NumberExpression";
-// import { MathContext } from "./MathContext.js";
+import CalculationExpression from "./math_engine/CalculationExpression.js";
+import ShuntingYard from "./math_engine/ShuntingYard.js";
+import SYExpressionParser from "./math_engine/SYExpressionParser.js";
 
 let cursorPosition = 0;
 
@@ -85,6 +85,14 @@ function button(input: string) {
             text.slice(0, cursorPosition) + text.slice(cursorPosition + 1);
         }
       }
+    } else if (input === "equals") {
+      // Calculate the result
+      const tokens = ShuntingYard.parse(text);
+      const expression = SYExpressionParser.parseExpression(tokens);
+      const result = (expression as CalculationExpression).calculate();
+      console.log("Expression: ", expression.toString());
+      console.log("Result: ", result);
+      newText = result.toString();
     } else if (input === "AC") {
       newText = "0";
       cursorPosition = 1;
@@ -210,5 +218,3 @@ function updateDisplay(text: string) {
 }
 
 (window as any).button = button;
-
-var numEx = new NumberExpression(5);

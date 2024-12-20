@@ -9,30 +9,35 @@ export default class FunctionCalculation extends UnaryCalculation {
   constructor(expression: AbstractExpression, functionName: string) {
     super(expression);
     this.functionName = functionName;
+    console.log("FunctionCalculation: ", this.functionName);
   }
 
   calculate(): number {
+    var val: number = NaN;
     if (this.value instanceof NumberExpression) {
-      return this.value.getValue();
+      val = this.value.getValue();
     } else if (this.value instanceof CalculationExpression) {
-      const value = this.value.calculate();
-
-      switch (this.functionName) {
-        case "sin":
-          return Math.sin(value);
-        case "cos":
-          return Math.cos(value);
-        case "tan":
-          return Math.tan(value);
-        case "max":
-          return Math.max(value);
-        case "min":
-          return Math.min(value);
-        default:
-          throw new Error(`Unknown function: ${this.functionName}`);
-      }
+      val = this.value.calculate();
     }
-    throw new Error("Invalid expression inside the brackets");
+
+    if (Number.isNaN(val)) {
+      throw new Error(`Invalid value for function ${this.functionName}`);
+    }
+
+    switch (this.functionName) {
+      case "sin":
+        return Math.sin(val);
+      case "cos":
+        return Math.cos(val);
+      case "tan":
+        return Math.tan(val);
+      case "max":
+        return Math.max(val);
+      case "min":
+        return Math.min(val);
+      default:
+        throw new Error(`Unknown function: ${this.functionName}`);
+    }
   }
 
   evaluate(): AbstractExpression {
