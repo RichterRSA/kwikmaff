@@ -1,5 +1,6 @@
 import { dot } from "node:test/reporters";
-import { MathContext } from "./MathContext.js";
+import NumberExpression from "./math_engine/NumberExpression";
+// import { MathContext } from "./MathContext.js";
 
 let cursorPosition = 0;
 
@@ -129,8 +130,8 @@ function button(input: string) {
     // Update the display text with the cursor at the new position
     updateDisplay(newText);
 
-    MathContext.setContext(display?.textContent || "");
-    MathContext.parse();
+    // MathContext.setContext(display?.textContent || "");
+    // MathContext.parse();
   }
 }
 
@@ -209,3 +210,5 @@ function updateDisplay(text: string) {
 }
 
 (window as any).button = button;
+
+var numEx = new NumberExpression(5);

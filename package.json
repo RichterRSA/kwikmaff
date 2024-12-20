@@ -8,15 +8,21 @@
     "deploy": "gh-pages -d public",
     "start": "http-server ./public -p 3000",
     "build": "tsc",
-    "dev": "tsc --watch"
+    "dev": "tsc --watch",
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/jest": "^29.5.14",
     "@types/node": "^22.9.3",
     "gh-pages": "^6.2.0",
     "typescript": "^5.7.2"
   },
-  "homepage": "https://richterrsa.github.io/kwikmaff"
+  "homepage": "https://richterrsa.github.io/kwikmaff",
+  "dependencies": {
+    "jest": "^29.7.0",
+    "ts-jest": "^29.2.5"
+  }
 }
