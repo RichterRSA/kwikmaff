@@ -1,10 +1,8 @@
 class ShuntingYard {
   static parse(expression: string): string[] {
     var tokens: string[] =
-      expression.match(/(sin|cos|tan|max|min|\d*\.?\d+|[\+\-\*\/\^\(\)])/g) ||
+      expression.match(/(sin|cos|tan|max|min|\d*\.?\d+|[\+\-\*\/\^\(\),])/g) ||
       [];
-
-    console.log("Tokens: ", tokens);
 
     var output: string[] = [];
     var operators: string[] = [];
@@ -17,7 +15,6 @@ class ShuntingYard {
     };
 
     const functions = ["sin", "cos", "tan", "max", "min"];
-
     const isRightAssociative = (op: string) => op === "^";
 
     while (tokens.length > 0) {
@@ -27,6 +24,8 @@ class ShuntingYard {
 
       if (Number.parseFloat(token!)) {
         output.push(token!);
+      } else if (functions.includes(token!)) {
+        operators.push(token!);
       } else if (token === "(") {
         operators.push(token);
       } else if (token === ")") {
@@ -36,12 +35,19 @@ class ShuntingYard {
         ) {
           output.push(operators.pop()!);
         }
-        operators.pop();
-      } else if (functions.includes(token!)) {
-        operators.push(token!);
+        operators.pop(); // Remove "("
+        if (
+          operators.length > 0 &&
+          functions.includes(operators[operators.length - 1])
+        ) {
+          output.push(operators.pop()!);
+        }
+      } else if (token === ",") {
+        continue;
       } else {
         while (
           operators.length > 0 &&
+          operators[operators.length - 1] !== "(" &&
           ops[operators[operators.length - 1]] >= ops[token!] &&
           !isRightAssociative(token!)
         ) {

@@ -31,10 +31,12 @@ export default class FunctionCalculation extends UnaryCalculation {
         return Math.cos(val);
       case "tan":
         return Math.tan(val);
-      case "max":
-        return Math.max(val);
-      case "min":
-        return Math.min(val);
+      case "asin":
+        return Math.asin(val);
+      case "acos":
+        return Math.acos(val);
+      case "atan":
+        return Math.atan(val);
       default:
         throw new Error(`Unknown function: ${this.functionName}`);
     }

@@ -88,6 +88,7 @@ function button(input: string) {
     } else if (input === "equals") {
       // Calculate the result
       const tokens = ShuntingYard.parse(text);
+      console.log("Tokens: ", tokens);
       const expression = SYExpressionParser.parseExpression(tokens);
       const result = (expression as CalculationExpression).calculate();
       console.log("Expression: ", expression.toString());

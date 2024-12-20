@@ -24,7 +24,9 @@ class PrimitiveCalculation extends BinaryCalculation {
     } else if (this.lhs instanceof CalculationExpression) {
       leftValue = this.lhs.calculate();
     } else {
-      throw new Error("Invalid left hand side of the expression");
+      throw new Error(
+        "Invalid left hand side of the expression: " + this.lhs.toString()
+      );
     }
 
     if (this.rhs instanceof NumberExpression) {
