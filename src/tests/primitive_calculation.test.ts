@@ -1,6 +1,6 @@
-import PrimitiveCalculation from "../src/math_engine/calculation_expressions/binary_calculations/PrimitiveCalculation";
-import NumberExpression from "../src/math_engine/NumberExpression";
-import CalculationExpression from "../src/math_engine/CalculationExpression";
+import PrimitiveCalculation from "../math_engine/calculation_expressions/binary_calculations/PrimitiveCalculation";
+import NumberExpression from "../math_engine/NumberExpression";
+import CalculationExpression from "../math_engine/CalculationExpression";
 
 describe("PrimitiveCalculation", () => {
   test("both sides are NumberExpressions", () => {

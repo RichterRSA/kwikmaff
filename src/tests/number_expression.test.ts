@@ -1,5 +1,5 @@
 import { describe } from "node:test";
-import NumberExpression from "../src/math_engine/NumberExpression";
+import NumberExpression from "../math_engine/NumberExpression";
 
 describe("NumberExpression", () => {
   it("should evaluate to itself", () => {
