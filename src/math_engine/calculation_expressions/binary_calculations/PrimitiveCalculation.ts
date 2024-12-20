@@ -49,10 +49,10 @@ class PrimitiveCalculation extends BinaryCalculation {
     throw new Error(`Unknown operator: ${this.operator}`);
   }
   evaluate(): AbstractExpression {
-    throw new Error("Method not implemented.");
+    return new NumberExpression(this.calculate());
   }
   toString(): string {
-    throw new Error("Method not implemented.");
+    return `${this.lhs.toString()} ${this.operator} ${this.rhs.toString()}`;
   }
 }
 
