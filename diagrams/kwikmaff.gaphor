@@ -469,6 +469,7 @@ existing classes or even new classes with specific responsibilities.</val>
 <ownedOperation>
 <reflist>
 <ref refid="05280f50-bec3-11ef-a9fb-0958536a555e"/>
+<ref refid="9581cd99-bece-11ef-8cb8-c3a5c41da2ea"/>
 </reflist>
 </ownedOperation>
 <package>
@@ -497,7 +498,7 @@ existing classes or even new classes with specific responsibilities.</val>
 <val>161.0</val>
 </width>
 <height>
-<val>74.0</val>
+<val>91.0</val>
 </height>
 <diagram>
 <ref refid="887ba852-bec2-11ef-878c-0958536a555e"/>
@@ -582,7 +583,7 @@ existing classes or even new classes with specific responsibilities.</val>
 <val>(1.0, 0.0, 0.0, 1.0, 214.3684776424965, 372.21484375)</val>
 </matrix>
 <points>
-<val>[(-165.3488548397621, 147.6484375), (0.0, -21.7890625)]</val>
+<val>[(-165.3488548397621, 147.6484375), (0.0, -4.7890625)]</val>
 </points>
 <head-connection>
 <ref refid="4d768ee2-bec3-11ef-a48e-0958536a555e"/>
@@ -690,7 +691,7 @@ existing classes or even new classes with specific responsibilities.</val>
 <val>(1.0, 0.0, 0.0, 1.0, 211.55859375, 348.5703125)</val>
 </matrix>
 <points>
-<val>[(162.58981323242188, 171.29296875), (2.8098838924964866, 1.85546875)]</val>
+<val>[(162.58981323242188, 171.29296875), (2.8098838924964866, 18.85546875)]</val>
 </points>
 <head-connection>
 <ref refid="c7400ebf-bec3-11ef-b8cb-0958536a555e"/>
@@ -757,10 +758,10 @@ existing classes or even new classes with specific responsibilities.</val>
 <val>(0.0, 0.0)</val>
 </top-left>
 <width>
-<val>142.0</val>
+<val>150.78500921075994</val>
 </width>
 <height>
-<val>91.0</val>
+<val>74.0</val>
 </height>
 <diagram>
 <ref refid="887ba852-bec2-11ef-878c-0958536a555e"/>
@@ -809,10 +810,10 @@ existing classes or even new classes with specific responsibilities.</val>
 <val>(0.0, 0.0)</val>
 </top-left>
 <width>
-<val>147.0</val>
+<val>153.2573791346058</val>
 </width>
 <height>
-<val>108.0</val>
+<val>91.00000000000006</val>
 </height>
 <diagram>
 <ref refid="887ba852-bec2-11ef-878c-0958536a555e"/>
@@ -838,7 +839,7 @@ existing classes or even new classes with specific responsibilities.</val>
 <val>(1.0, 0.0, 0.0, 1.0, 378.6930325752663, 580.0546875)</val>
 </matrix>
 <points>
-<val>[(-108.7672818428444, 102.3046875), (-4.5446255928443975, 30.80859375)]</val>
+<val>[(-104.37477723746446, 102.3046875), (-4.5446255928443975, 30.80859375)]</val>
 </points>
 <head-connection>
 <ref refid="133a7f6e-bec4-11ef-bc9b-0958536a555e"/>
@@ -877,7 +878,7 @@ existing classes or even new classes with specific responsibilities.</val>
 <val>(1.0, 0.0, 0.0, 1.0, 379.3805325752663, 584.13671875)</val>
 </matrix>
 <points>
-<val>[(120.2460327148437, 98.22265625), (-5.2321255928443975, 26.7265625)]</val>
+<val>[(123.37472228214659, 98.22265625), (-5.2321255928443975, 26.7265625)]</val>
 </points>
 <head-connection>
 <ref refid="258d7dce-bec4-11ef-b04f-0958536a555e"/>
@@ -943,6 +944,7 @@ existing classes or even new classes with specific responsibilities.</val>
 <ownedOperation>
 <reflist>
 <ref refid="e136e721-bec4-11ef-ab19-0958536a555e"/>
+<ref refid="dc83f03c-becc-11ef-8861-c3a5c41da2ea"/>
 </reflist>
 </ownedOperation>
 <package>
@@ -962,10 +964,10 @@ existing classes or even new classes with specific responsibilities.</val>
 <val>(0.0, 0.0)</val>
 </top-left>
 <width>
-<val>168.0</val>
+<val>177.32339117212334</val>
 </width>
 <height>
-<val>91.0</val>
+<val>108.0</val>
 </height>
 <diagram>
 <ref refid="887ba852-bec2-11ef-878c-0958536a555e"/>
@@ -991,7 +993,7 @@ existing classes or even new classes with specific responsibilities.</val>
 <val>(1.0, 0.0, 0.0, 1.0, 518.5024386443538, 753.8164728807674)</val>
 </matrix>
 <points>
-<val>[(-185.6992645263672, 158.203125), (-33.41676484107061, 36.54290211923262)]</val>
+<val>[(-181.0375689403055, 158.203125), (-30.90704038253125, 19.54290211923262)]</val>
 </points>
 <head-connection>
 <ref refid="cbfb155c-bec4-11ef-997f-0958536a555e"/>
@@ -1038,6 +1040,22 @@ existing classes or even new classes with specific responsibilities.</val>
 </isAbstract>
 <name>
 <val>calculate</val>
+</name>
+</Operation>
+<Operation id="dc83f03c-becc-11ef-8861-c3a5c41da2ea">
+<class_>
+<ref refid="cbfabff1-bec4-11ef-bd9b-0958536a555e"/>
+</class_>
+<name>
+<val>calculate</val>
+</name>
+</Operation>
+<Operation id="9581cd99-bece-11ef-8cb8-c3a5c41da2ea">
+<class_>
+<ref refid="8d5b0a89-bec2-11ef-bc6d-0958536a555e"/>
+</class_>
+<name>
+<val>toString</val>
 </name>
 </Operation>
 </gaphor>
