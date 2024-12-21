@@ -1,15 +1,15 @@
+import AngleUnit from "../../../Units.js";
 import AbstractExpression from "../../AbstractExpression.js";
 import CalculationExpression from "../../CalculationExpression.js";
 import NumberExpression from "../../NumberExpression.js";
 import UnaryCalculation from "../UnaryCalculation.js";
 
-export default class FunctionCalculation extends UnaryCalculation {
+export default class TrigFunctionCalculation extends UnaryCalculation {
   private readonly functionName: string;
 
   constructor(expression: AbstractExpression, functionName: string) {
     super(expression);
     this.functionName = functionName;
-    console.log("FunctionCalculation: ", this.functionName);
   }
 
   calculate(): number {
@@ -22,6 +22,10 @@ export default class FunctionCalculation extends UnaryCalculation {
 
     if (Number.isNaN(val)) {
       throw new Error(`Invalid value for function ${this.functionName}`);
+    }
+
+    if (AngleUnit.get() === "deg") {
+      val = val * (Math.PI / 180);
     }
 
     switch (this.functionName) {

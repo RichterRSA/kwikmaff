@@ -2,7 +2,7 @@ import AbstractExpression from "./AbstractExpression.js";
 import NumberExpression from "./NumberExpression.js";
 import MinMaxCalculation from "./calculation_expressions/binary_calculations/MinMaxCalculation.js";
 import PrimitiveCalculation from "./calculation_expressions/binary_calculations/PrimitiveCalculation.js";
-import FunctionCalculation from "./calculation_expressions/unary_calculations/FunctionCalculation.js";
+import TrigFunctionCalculation from "./calculation_expressions/unary_calculations/TrigFunctionCalculation.js";
 
 export default class SYExpressionParser {
   private static readonly OPERATORS = ["+", "-", "*", "/", "^"];
@@ -56,7 +56,7 @@ export default class SYExpressionParser {
           throw new Error(`Not enough operands for function ${token}`);
         }
         const arg = stack.pop()!;
-        stack.push(new FunctionCalculation(arg, token));
+        stack.push(new TrigFunctionCalculation(arg, token));
         continue;
       }
 
