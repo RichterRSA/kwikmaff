@@ -160,6 +160,8 @@ function handleKeydown(event: KeyboardEvent) {
     case "Delete":
       button("delete");
       break;
+    case "Enter":
+      button("equals");
     default:
       if (event.key.length === 1) {
         button(event.key);
