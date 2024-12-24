@@ -89,12 +89,12 @@ function button(input: string) {
     } else if (input === "equals") {
       // Calculate the result
       const tokens = ShuntingYard.parse(text);
-      console.log("Tokens: ", tokens);
       const expression = SYExpressionParser.parseExpression(tokens);
-      const result = (expression as CalculationExpression).calculate();
-      console.log("Expression: ", expression.toString());
-      console.log("Result: ", result);
-      newText = result.toString();
+
+      if (expression instanceof CalculationExpression) {
+        const result = (expression as CalculationExpression).calculate();
+        newText = result.toString();
+      }
     } else if (input === "AC") {
       newText = "0";
       cursorPosition = 1;
