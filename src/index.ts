@@ -1,6 +1,7 @@
 import CalculationExpression from "./math_engine/CalculationExpression.js";
 import ShuntingYard from "./math_engine/ShuntingYard.js";
 import SYExpressionParser from "./math_engine/SYExpressionParser.js";
+import AngleUnit from "./Units.js";
 
 let cursorPosition = 0;
 
@@ -144,6 +145,33 @@ function button(input: string) {
   }
 }
 
+function unit(unit: number) {
+  switch (unit) {
+    case 0:
+      AngleUnit.setDeg();
+      setSelectedUnit(0);
+      break;
+    case 1:
+      AngleUnit.setRad();
+      setSelectedUnit(1);
+      break;
+    default:
+      break;
+  }
+}
+
+function setSelectedUnit(index: number) {
+  const unitButtons = document.getElementsByClassName("unit");
+  for (let i = 0; i < unitButtons.length; i++) {
+    const button = unitButtons[i];
+    if (i === index) {
+      button.classList.add("unit-selected");
+    } else {
+      button.classList.remove("unit-selected");
+    }
+  }
+}
+
 document.addEventListener("keydown", handleKeydown);
 
 function handleKeydown(event: KeyboardEvent) {
@@ -221,3 +249,4 @@ function updateDisplay(text: string) {
 }
 
 (window as any).button = button;
+(window as any).unit = unit;
