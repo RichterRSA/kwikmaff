@@ -3,26 +3,27 @@ import ShuntingYard from "./math_engine/ShuntingYard.js";
 import SYExpressionParser from "./math_engine/SYExpressionParser.js";
 import AngleUnit from "./Units.js";
 
-let cursorPosition = 0;
+let cursorPosition = 1;
+
+const functionUnits = [
+  "pow",
+  "exp",
+  "sqrt",
+  "logxy",
+  "sin",
+  "cos",
+  "tan",
+  "log",
+  "ln",
+];
 
 function button(input: string) {
   const display = document.getElementById("text-content");
   const cursor = document.getElementById("cursor");
-  const functionUnits = [
-    "pow",
-    "exp",
-    "sqrt",
-    "logxy",
-    "sin",
-    "cos",
-    "tan",
-    "log",
-    "ln",
-  ];
 
   if (display && cursor) {
     // Get the current text without the cursor
-    const text = display.innerText.replace("|", "");
+    const text = display.innerText.replace("|", "").trim();
 
     // Update the text based on the input
     let newText = text;
@@ -50,22 +51,20 @@ function button(input: string) {
       }
     } else if (input === "backspace") {
       if (cursorPosition > 0) {
-        // Check if the character before the cursor is part of a function unit
-        for (const func of functionUnits) {
-          if (
-            newText.slice(cursorPosition - func.length, cursorPosition) === func
-          ) {
-            newText =
-              newText.slice(0, cursorPosition - func.length) +
-              newText.slice(cursorPosition);
-            cursorPosition -= func.length;
-            break;
-          }
+        if (newText.length == 1) {
+          newText = "0";
+          cursorPosition = 1;
         }
         if (newText === text) {
-          newText =
-            text.slice(0, cursorPosition - 1) + text.slice(cursorPosition);
-          cursorPosition -= 1;
+          if (cursorPosition >= text.length) {
+            cursorPosition = text.length;
+            newText = text.slice(0, cursorPosition - 1);
+            cursorPosition = newText.length;
+          } else {
+            newText =
+              text.slice(0, cursorPosition - 1) + text.slice(cursorPosition);
+            cursorPosition -= 1;
+          }
         }
       }
     } else if (input === "delete") {
@@ -88,12 +87,21 @@ function button(input: string) {
       }
     } else if (input === "equals") {
       // Calculate the result
-      const tokens = ShuntingYard.parse(text);
-      const expression = SYExpressionParser.parseExpression(tokens);
+      if (text.length > 0) {
+        const tokens = ShuntingYard.parse(text);
+        const expression = SYExpressionParser.parseExpression(tokens);
 
-      if (expression instanceof CalculationExpression) {
-        const result = (expression as CalculationExpression).calculate();
-        newText = result.toString();
+        if (expression instanceof CalculationExpression) {
+          const result = (expression as CalculationExpression).calculate();
+          newText = result.toString();
+        }
+
+        newText = newText.trim();
+        //move cursor
+        cursorPosition = newText.trim().length;
+      } else {
+        newText = "0";
+        cursorPosition = 1;
       }
     } else if (input === "AC") {
       newText = "0";
@@ -137,11 +145,30 @@ function button(input: string) {
       }
     }
 
-    // Update the display text with the cursor at the new position
+    checkMultiplicateMissing();
     updateDisplay(newText);
+  }
+}
 
-    // MathContext.setContext(display?.textContent || "");
-    // MathContext.parse();
+function checkMultiplicateMissing() {
+  const display = document.getElementById("text-content");
+  for (let i = 0; i < functionUnits.length; i++) {
+    if (display) {
+      const text = display.innerText.replace("|", "");
+      const index = text.indexOf(functionUnits[i]);
+      if (index !== -1) {
+        const nextChar = text[index + functionUnits[i].length];
+        if (nextChar !== "(") {
+          const newText =
+            text.slice(0, index + functionUnits[i].length) +
+            "(" +
+            text.slice(index + functionUnits[i].length) +
+            ")";
+          cursorPosition += 2;
+          updateDisplay(newText);
+        }
+      }
+    }
   }
 }
 
