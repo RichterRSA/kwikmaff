@@ -4,6 +4,7 @@ import SYExpressionParser from "./math_engine/SYExpressionParser.js";
 import AngleUnit from "./Units.js";
 
 let cursorPosition = 1;
+let isControlHeld = false;
 
 const functionUnits = [
   "pow",
@@ -203,7 +204,26 @@ function setSelectedUnit(index: number) {
   }
 }
 
-document.addEventListener("keydown", handleKeydown);
+document.addEventListener("keydown", (e) => {
+  if ((e.key === "Backspace" || e.key === "Delete") && isControlHeld) {
+    e.preventDefault();
+    button("AC");
+    return;
+  }
+  handleKeydown(e);
+});
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Control") {
+    isControlHeld = true;
+  }
+});
+
+document.addEventListener("keyup", (e) => {
+  if (e.key === "Control") {
+    isControlHeld = false;
+  }
+});
 
 function handleKeydown(event: KeyboardEvent) {
   switch (event.key) {
