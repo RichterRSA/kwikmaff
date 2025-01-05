@@ -37,32 +37,9 @@ function button(input: string) {
     }
 
     if (input === "left") {
-      console.log("Left");
       cursorPosition = Math.max(0, cursorPosition - 1);
-      console.log("Cursor position: ", cursorPosition);
-      // Skip over function units
-      // for (const func of functionUnits) {
-      //   if (
-      //     newText.slice(cursorPosition - func.length, cursorPosition) === func
-      //   ) {
-      //     cursorPosition -= func.length;
-      //     break;
-      //   }
-      // }
     } else if (input === "right") {
-      console.log("Right");
       cursorPosition = Math.min(text.length, cursorPosition + 1);
-      console.log("Cursor position: ", cursorPosition);
-
-      // Skip over function units
-      // for (const func of functionUnits) {
-      //   if (
-      //     newText.slice(cursorPosition, cursorPosition + func.length) === func
-      //   ) {
-      //     cursorPosition += func.length;
-      //     break;
-      //   }
-      // }
     } else if (input === "backspace") {
       if (cursorPosition > 0) {
         if (newText.length == 1) {
@@ -105,6 +82,7 @@ function button(input: string) {
         const processedText = preprocessExpression(text);
 
         const tokens = ShuntingYard.parse(processedText);
+
         let expression: any = null;
         try {
           expression = SYExpressionParser.parseExpression(tokens);
@@ -113,12 +91,12 @@ function button(input: string) {
 
           if (err.startsWith("UT")) {
             newText = "Invalid Token: " + err.substring(2);
-          }
-          if (err.startsWith("NEO")) {
+          } else if (err.startsWith("NEO")) {
             newText = "Not enough operands for function";
-          }
-          if (err.startsWith("IE")) {
+          } else if (err.startsWith("IE")) {
             newText = "Invalid expression";
+          } else {
+            console.log("Error: ", e);
           }
           error = true;
         }
@@ -199,7 +177,8 @@ function preprocessExpression(expression: string): string {
       if (
         (/\d/.test(before) && /[a-zA-Z(πe]/.test(current)) ||
         (before === ")" && /[\d(a-zA-ZπE]/.test(current)) ||
-        (constantPattern.test(before) && /[\d(]/.test(current))
+        (constantPattern.test(before) && /[\d(]/.test(current)) ||
+        (constantPattern.test(before) && constantPattern.test(current))
       ) {
         result += "*";
       }

@@ -16,6 +16,8 @@ class ShuntingYard {
     };
 
     const functions = ["sin", "cos", "tan", "max", "min"];
+    const constants = ["pi", "π", "e"];
+
     const isRightAssociative = (op: string) => op === "^";
 
     while (tokens.length > 0) {
@@ -24,6 +26,8 @@ class ShuntingYard {
       if (token === "") continue;
 
       if (Number.parseFloat(token!)) {
+        output.push(token!);
+      } else if (constants.includes(token!)) {
         output.push(token!);
       } else if (functions.includes(token!)) {
         operators.push(token!);

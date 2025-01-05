@@ -46,6 +46,8 @@ class PrimitiveCalculation extends BinaryCalculation {
         return leftValue * rightValue;
       case "/":
         return leftValue / rightValue;
+      case "^":
+        return leftValue ** rightValue;
     }
 
     throw new Error(`Unknown operator: ${this.operator}`);
