@@ -1,0 +1,166 @@
+:root {
+    --primary-color: #3498db;
+    --button-color: #dfdfdf;
+    --button-secondary-color: #b6b6b6;
+    --button-accent-1-color: #3652b1;
+    --button-accent-2-color: #e07f10;
+    --font-size: 16px;
+    --button-padding: 10px 20px;
+    --button-border-radius: 5px;
+    --button-border: 1px solid #ccc;
+    --button-width: 5rem;
+    --button-height: 3rem;
+}
+
+body {
+    display: grid;
+    place-items: center;
+    background-color: #f5f5f5;
+    height: 100vh;
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+#calculator {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    width: min-content;
+}
+
+#button-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem;
+    width: min-content;
+}
+
+#display {
+    font-size: 1.5rem;
+    padding: 1rem;
+    border-radius: 5px;
+    border-color: grey;
+    border-style: solid;
+    border-width: 2px;
+    text-align: right;
+    overflow: hidden;
+    position: relative;
+}
+
+#text-content {
+  display: inline-block;
+  text-align: left;
+  user-select: none;
+  cursor: text;
+}
+
+.button {
+    background-color: var(--button-color);
+    color: black;
+    font-size: var(--font-size);
+    border-radius: var(--button-border-radius);
+    width: var(--button-width) !important;
+    height: var(--button-height) !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+}
+
+.button-spacer {
+    width: var(--button-width) !important;
+    height: var(--button-height) !important;
+}
+
+.button:hover {
+    filter: brightness(0.95);
+}
+
+.button-wide {
+    width: 100% !important;
+    grid-column: span 2 !important;
+}
+
+.button-tall {
+    height: calc(var(--button-height) * 2 + 1rem + 2px) !important;
+    grid-row: span 2 !important;
+}
+
+.button-secondary {
+    background-color: var(--button-secondary-color);
+}
+
+.button-secondary:hover {
+    filter: brightness(1.10);
+}
+
+.button-accent-1 {
+    background-color: var(--button-accent-1-color);
+    color: white;
+}
+
+.button-accent-1:hover {
+    filter: brightness(1.10);
+}
+
+.button-accent-2 {
+    background-color: var(--button-accent-2-color);
+    color: white;
+}
+
+.button-accent-2:hover {
+    filter: brightness(1.10);
+}
+
+.cursor {
+    display: inline-block;
+    width: 2px;
+    height: 1em;
+    background-color: black;
+    animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+
+    from,
+    to {
+        background-color: black;
+    }
+
+    50% {
+        background-color: transparent;
+    }
+}
+
+.top-bar{
+    display: flex;
+    justify-content: end;
+}
+
+.unit-selection {
+    display: flex;
+    width: fit-content;
+    gap: 0rem;
+    background-color: var(--button-accent-1-color);
+    color: white;
+    padding: 0rem 1rem;
+    border-radius: 100vmax;
+}
+
+.unit {
+    cursor: pointer;
+    padding: 0.2rem 0.5rem;
+}
+
+.unit:hover {
+    filter: brightness(1.10);
+}
+
+.unit-selected {
+    background-color: var(--button-accent-2-color);
+    color: black;
+}
