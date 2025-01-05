@@ -38,9 +38,22 @@ export class InputHandler implements IInputHandler {
         newPosition = Math.min(currentText.length, currentPosition + 1);
         break;
       case "backspace":
-        if (currentPosition > 0) {
-          newText = this.handleBackspace(currentText, currentPosition);
-          newPosition = Math.max(1, currentPosition - 1);
+        if (newPosition > 0) {
+          if (newText.length == 1) {
+            newText = "0";
+            newPosition = 1;
+          }
+          if (newText === newText) {
+            if (newPosition >= newText.length) {
+              newPosition = newText.length;
+              newText = newText.slice(0, newPosition - 1);
+              newPosition = newText.length;
+            } else {
+              newText =
+                newText.slice(0, newPosition - 1) + newText.slice(newPosition);
+              newPosition -= 1;
+            }
+          }
         }
         break;
       case "AC":
@@ -98,7 +111,7 @@ export class InputHandler implements IInputHandler {
         break;
       case "Backspace":
         if (this.isControlHeld) this.handleButton("AC");
-        else this.handleButton("delete");
+        else this.handleButton("backspace");
         break;
       case "Delete":
         if (this.isControlHeld) this.handleButton("AC");
