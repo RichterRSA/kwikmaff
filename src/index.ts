@@ -1,4 +1,5 @@
 import CalculationExpression from "./math_engine/CalculationExpression.js";
+import NumberExpression from "./math_engine/NumberExpression.js";
 import ShuntingYard from "./math_engine/ShuntingYard.js";
 import SYExpressionParser from "./math_engine/SYExpressionParser.js";
 import AngleUnit from "./Units.js";
@@ -102,6 +103,8 @@ function button(input: string) {
         if (expression instanceof CalculationExpression) {
           const result = (expression as CalculationExpression).calculate();
           newText = result.toString();
+        } else if (expression instanceof NumberExpression) {
+          newText = (expression as NumberExpression).getValue().toString();
         }
 
         newText = newText.trim();
@@ -164,6 +167,7 @@ function button(input: string) {
 function preprocessExpression(expression: string): string {
   let result = "";
   let i = 0;
+  const constantPattern = /[πeπphi]/;
 
   while (i < expression.length) {
     if (i > 0) {
@@ -171,8 +175,9 @@ function preprocessExpression(expression: string): string {
       const current = expression[i];
 
       if (
-        (/\d/.test(before) && /[a-zA-Z(]/.test(current)) ||
-        (before === ")" && /[\d(a-zA-Z]/.test(current))
+        (/\d/.test(before) && /[a-zA-Z(πe]/.test(current)) ||
+        (before === ")" && /[\d(a-zA-ZπE]/.test(current)) ||
+        (constantPattern.test(before) && /[\d(]/.test(current))
       ) {
         result += "*";
       }

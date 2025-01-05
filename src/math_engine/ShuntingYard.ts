@@ -1,8 +1,9 @@
 class ShuntingYard {
   static parse(expression: string): string[] {
     var tokens: string[] =
-      expression.match(/(sin|cos|tan|max|min|\d*\.?\d+|[\+\-\*\/\^\(\),])/g) ||
-      [];
+      expression.match(
+        /(sin|cos|tan|max|min|pi|π|e|\d*\.?\d+|[\+\-\*\/\^\(\),])/g
+      ) || [];
 
     var output: string[] = [];
     var operators: string[] = [];

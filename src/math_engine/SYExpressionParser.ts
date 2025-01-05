@@ -1,4 +1,5 @@
 import AbstractExpression from "./AbstractExpression.js";
+import { Constants } from "./Constants.js";
 import NumberExpression from "./NumberExpression.js";
 import MinMaxCalculation from "./calculation_expressions/binary_calculations/MinMaxCalculation.js";
 import PrimitiveCalculation from "./calculation_expressions/binary_calculations/PrimitiveCalculation.js";
@@ -15,9 +16,6 @@ export default class SYExpressionParser {
     "atan",
   ];
   private static readonly MIN_MAX_FUNCTIONS = ["min", "max"];
-  private static readonly SPECIAL_CONSTANTS = {
-    π: Math.PI,
-  };
 
   private static isNumber(token: string): boolean {
     return !isNaN(Number(token));
@@ -25,19 +23,14 @@ export default class SYExpressionParser {
 
   static parseExpression(tokens: string[]): AbstractExpression {
     const stack: AbstractExpression[] = [];
-
     for (const token of tokens) {
       if (this.isNumber(token)) {
         stack.push(new NumberExpression(Number(token)));
         continue;
       }
 
-      if (token in this.SPECIAL_CONSTANTS) {
-        stack.push(
-          new NumberExpression(
-            this.SPECIAL_CONSTANTS[token as keyof typeof this.SPECIAL_CONSTANTS]
-          )
-        );
+      if (Constants.isConstant(token)) {
+        stack.push(new NumberExpression(Constants.getValue(token) as number));
         continue;
       }
 
