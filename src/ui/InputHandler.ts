@@ -56,6 +56,14 @@ export class InputHandler implements IInputHandler {
           }
         }
         break;
+      case "lb":
+        newText = this.handleTextInput("(", currentText, currentPosition);
+        newPosition = currentPosition + 1;
+        break;
+      case "rb":
+        newText = this.handleTextInput(")", currentText, currentPosition);
+        newPosition = currentPosition + 1;
+        break;
       case "AC":
         newText = "0";
         newPosition = 1;
