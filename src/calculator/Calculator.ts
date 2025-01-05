@@ -6,7 +6,9 @@ import NumberExpression from "../math_engine/NumberExpression.js";
 export class Calculator {
   static evaluate(expression: string): string {
     const processedText = Calculator.preprocessExpression(expression);
+    console.log("Processed Text: ", processedText);
     const tokens = ShuntingYard.parse(processedText);
+    console.log("Tokens: ", tokens);
 
     const result = SYExpressionParser.parseExpression(tokens);
     if (result instanceof CalculationExpression) {
