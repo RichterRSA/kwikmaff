@@ -113,6 +113,11 @@ body {
     color: white;
 }
 
+.button-red {
+    background-color: rgb(214, 46, 46);
+    color: white;
+}
+
 .button-accent-2:hover {
     filter: brightness(1.10);
 }
