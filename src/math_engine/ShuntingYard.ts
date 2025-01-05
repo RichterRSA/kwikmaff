@@ -2,7 +2,7 @@ class ShuntingYard {
   static parse(expression: string): string[] {
     var tokens: string[] =
       expression.match(
-        /(sin|cos|tan|max|min|pi|π|e|\d*\.?\d+|[\+\-\*\/\^\(\),])/g
+        /(sin|cos|tan|max|min|ln|log|pi|π|e|\d*\.?\d+|[\+\-\*\/\^\(\),])/g
       ) || [];
 
     var output: string[] = [];
@@ -15,7 +15,7 @@ class ShuntingYard {
       "^": 3,
     };
 
-    const functions = ["sin", "cos", "tan", "max", "min"];
+    const functions = ["sin", "cos", "tan", "max", "min", "ln", "log"];
     const constants = ["pi", "π", "e"];
 
     const isRightAssociative = (op: string) => op === "^";

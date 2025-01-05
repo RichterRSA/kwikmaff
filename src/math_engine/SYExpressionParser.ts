@@ -3,6 +3,7 @@ import { Constants } from "./Constants.js";
 import NumberExpression from "./NumberExpression.js";
 import MinMaxCalculation from "./calculation_expressions/binary_calculations/MinMaxCalculation.js";
 import PrimitiveCalculation from "./calculation_expressions/binary_calculations/PrimitiveCalculation.js";
+import LogarithmicCalculation from "./calculation_expressions/unary_calculations/LogarithmicCalculation.js";
 import TrigFunctionCalculation from "./calculation_expressions/unary_calculations/TrigFunctionCalculation.js";
 
 export default class SYExpressionParser {
@@ -15,6 +16,7 @@ export default class SYExpressionParser {
     "acos",
     "atan",
   ];
+  private static readonly LOG_FUNCTIONS = ["ln", "log"];
   private static readonly MIN_MAX_FUNCTIONS = ["min", "max"];
 
   private static isNumber(token: string): boolean {
@@ -50,6 +52,15 @@ export default class SYExpressionParser {
         }
         const arg = stack.pop()!;
         stack.push(new TrigFunctionCalculation(arg, token));
+        continue;
+      }
+
+      if (this.LOG_FUNCTIONS.includes(token)) {
+        if (stack.length < 1) {
+          throw new Error(`NEO`); // Not enough operands for function
+        }
+        const arg = stack.pop()!;
+        stack.push(new LogarithmicCalculation(arg, token));
         continue;
       }
 
