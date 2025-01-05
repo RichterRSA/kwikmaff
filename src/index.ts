@@ -141,18 +141,39 @@ function button(input: string) {
       cursorPosition += 1;
     } else {
       if (text != "0") {
-        newText =
-          text.slice(0, cursorPosition) + input + text.slice(cursorPosition);
-        cursorPosition += input.length;
+        // Check if multiplication symbol needed
+        if (needsMultiplicationSymbol(text.slice(0, cursorPosition), input)) {
+          newText =
+            text.slice(0, cursorPosition) +
+            "*" +
+            input +
+            text.slice(cursorPosition);
+          cursorPosition += input.length + 1;
+        } else {
+          newText =
+            text.slice(0, cursorPosition) + input + text.slice(cursorPosition);
+          cursorPosition += input.length;
+        }
       } else {
         newText = input;
         cursorPosition = input.length;
       }
     }
 
-    // checkMultiplicateMissing();
     updateDisplay(newText);
   }
+}
+
+function needsMultiplicationSymbol(before: string, after: string): boolean {
+  // Check if last char of before is number and first char of after is letter or (
+  if (!before) return false;
+  const lastChar = before[before.length - 1];
+  const firstChar = after[0];
+
+  return (
+    (/\d/.test(lastChar) && /[a-zA-Z(]/.test(firstChar)) ||
+    (lastChar === ")" && (/\d/.test(firstChar) || /[a-zA-Z(]/.test(firstChar)))
+  );
 }
 
 function unit(unit: number) {
