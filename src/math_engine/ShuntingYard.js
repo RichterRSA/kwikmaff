@@ -13,11 +13,13 @@ class ShuntingYard {
         const functions = ["sin", "cos", "tan", "max", "min", "ln", "log"];
         const constants = ["pi", "π", "e"];
         const isRightAssociative = (op) => op === "^";
+        const isNumber = (token) => !isNaN(Number(token)) || token === "0";
         while (tokens.length > 0) {
             const token = tokens.shift();
             if (token === "")
                 continue;
-            if (Number.parseFloat(token)) {
+            if (isNumber(token)) {
+                // Changed condition here
                 output.push(token);
             }
             else if (constants.includes(token)) {

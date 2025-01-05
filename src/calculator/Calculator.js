@@ -5,7 +5,9 @@ import NumberExpression from "../math_engine/NumberExpression.js";
 export class Calculator {
     static evaluate(expression) {
         const processedText = Calculator.preprocessExpression(expression);
+        console.log("Processed Text: ", processedText);
         const tokens = ShuntingYard.parse(processedText);
+        console.log("Tokens: ", tokens);
         const result = SYExpressionParser.parseExpression(tokens);
         if (result instanceof CalculationExpression) {
             return result.calculate().toString();
@@ -19,6 +21,12 @@ export class Calculator {
         let result = "";
         let i = 0;
         const constantPattern = /[πeπphi]/;
+        if (expression.startsWith("+") ||
+            expression.startsWith("-") ||
+            expression.startsWith("*") ||
+            expression.startsWith("/")) {
+            expression = "0" + expression;
+        }
         while (i < expression.length) {
             if (i > 0) {
                 const before = expression[i - 1];
