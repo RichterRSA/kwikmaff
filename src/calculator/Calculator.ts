@@ -25,7 +25,12 @@ export class Calculator {
     let i = 0;
     const constantPattern = /[πeπphi]/;
 
-    if (expression.startsWith("+") || expression.startsWith("-")) {
+    if (
+      expression.startsWith("+") ||
+      expression.startsWith("-") ||
+      expression.startsWith("*") ||
+      expression.startsWith("/")
+    ) {
       expression = "0" + expression;
     }
 
