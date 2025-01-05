@@ -2,6 +2,7 @@ import { Constants } from "./Constants.js";
 import NumberExpression from "./NumberExpression.js";
 import MinMaxCalculation from "./calculation_expressions/binary_calculations/MinMaxCalculation.js";
 import PrimitiveCalculation from "./calculation_expressions/binary_calculations/PrimitiveCalculation.js";
+import LogarithmicCalculation from "./calculation_expressions/unary_calculations/LogarithmicCalculation.js";
 import TrigFunctionCalculation from "./calculation_expressions/unary_calculations/TrigFunctionCalculation.js";
 class SYExpressionParser {
     static isNumber(token) {
@@ -20,7 +21,7 @@ class SYExpressionParser {
             }
             if (this.OPERATORS.includes(token)) {
                 if (stack.length < 2) {
-                    throw new Error(`Not enough operands for operator ${token}`);
+                    throw new Error("NEO");
                 }
                 const rhs = stack.pop();
                 const lhs = stack.pop();
@@ -35,6 +36,14 @@ class SYExpressionParser {
                 stack.push(new TrigFunctionCalculation(arg, token));
                 continue;
             }
+            if (this.LOG_FUNCTIONS.includes(token)) {
+                if (stack.length < 1) {
+                    throw new Error(`NEO`); // Not enough operands for function
+                }
+                const arg = stack.pop();
+                stack.push(new LogarithmicCalculation(arg, token));
+                continue;
+            }
             if (this.MIN_MAX_FUNCTIONS.includes(token)) {
                 if (stack.length < 2) {
                     throw new Error("NEO"); // Not enough operands for function
@@ -44,7 +53,7 @@ class SYExpressionParser {
                 stack.push(new MinMaxCalculation(lhs, rhs, token));
                 continue;
             }
-            throw new Error(`UT${token}`);
+            throw new Error(`UT`);
         }
         if (stack.length !== 1) {
             throw new Error("IE"); // Invalid expression
@@ -61,5 +70,6 @@ SYExpressionParser.TRIG_FUNCTIONS = [
     "acos",
     "atan",
 ];
+SYExpressionParser.LOG_FUNCTIONS = ["ln", "log"];
 SYExpressionParser.MIN_MAX_FUNCTIONS = ["min", "max"];
 export default SYExpressionParser;

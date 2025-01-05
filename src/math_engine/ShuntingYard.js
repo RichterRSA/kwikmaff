@@ -1,6 +1,6 @@
 class ShuntingYard {
     static parse(expression) {
-        var tokens = expression.match(/(sin|cos|tan|max|min|pi|π|e|\d*\.?\d+|[\+\-\*\/\^\(\),])/g) || [];
+        var tokens = expression.match(/(sin|cos|tan|max|min|ln|log|pi|π|e|\d*\.?\d+|[\+\-\*\/\^\(\),])/g) || [];
         var output = [];
         var operators = [];
         const ops = {
@@ -10,7 +10,7 @@ class ShuntingYard {
             "/": 2,
             "^": 3,
         };
-        const functions = ["sin", "cos", "tan", "max", "min"];
+        const functions = ["sin", "cos", "tan", "max", "min", "ln", "log"];
         const constants = ["pi", "π", "e"];
         const isRightAssociative = (op) => op === "^";
         while (tokens.length > 0) {
