@@ -28,27 +28,32 @@ function button(input: string) {
     // Update the text based on the input
     let newText = text;
     if (input === "left") {
+      console.log("Left");
       cursorPosition = Math.max(0, cursorPosition - 1);
+      console.log("Cursor position: ", cursorPosition);
       // Skip over function units
-      for (const func of functionUnits) {
-        if (
-          newText.slice(cursorPosition - func.length, cursorPosition) === func
-        ) {
-          cursorPosition -= func.length;
-          break;
-        }
-      }
+      // for (const func of functionUnits) {
+      //   if (
+      //     newText.slice(cursorPosition - func.length, cursorPosition) === func
+      //   ) {
+      //     cursorPosition -= func.length;
+      //     break;
+      //   }
+      // }
     } else if (input === "right") {
+      console.log("Right");
       cursorPosition = Math.min(text.length, cursorPosition + 1);
+      console.log("Cursor position: ", cursorPosition);
+
       // Skip over function units
-      for (const func of functionUnits) {
-        if (
-          newText.slice(cursorPosition, cursorPosition + func.length) === func
-        ) {
-          cursorPosition += func.length;
-          break;
-        }
-      }
+      // for (const func of functionUnits) {
+      //   if (
+      //     newText.slice(cursorPosition, cursorPosition + func.length) === func
+      //   ) {
+      //     cursorPosition += func.length;
+      //     break;
+      //   }
+      // }
     } else if (input === "backspace") {
       if (cursorPosition > 0) {
         if (newText.length == 1) {
@@ -145,30 +150,8 @@ function button(input: string) {
       }
     }
 
-    checkMultiplicateMissing();
+    // checkMultiplicateMissing();
     updateDisplay(newText);
-  }
-}
-
-function checkMultiplicateMissing() {
-  const display = document.getElementById("text-content");
-  for (let i = 0; i < functionUnits.length; i++) {
-    if (display) {
-      const text = display.innerText.replace("|", "");
-      const index = text.indexOf(functionUnits[i]);
-      if (index !== -1) {
-        const nextChar = text[index + functionUnits[i].length];
-        if (nextChar !== "(") {
-          const newText =
-            text.slice(0, index + functionUnits[i].length) +
-            "(" +
-            text.slice(index + functionUnits[i].length) +
-            ")";
-          cursorPosition += 2;
-          updateDisplay(newText);
-        }
-      }
-    }
   }
 }
 
