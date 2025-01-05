@@ -46,7 +46,7 @@ export default class SYExpressionParser {
 
       if (this.TRIG_FUNCTIONS.includes(token)) {
         if (stack.length < 1) {
-          throw new Error(`Not enough operands for function ${token}`);
+          throw new Error(`NEO`); // Not enough operands for function
         }
         const arg = stack.pop()!;
         stack.push(new TrigFunctionCalculation(arg, token));
@@ -55,7 +55,7 @@ export default class SYExpressionParser {
 
       if (this.MIN_MAX_FUNCTIONS.includes(token)) {
         if (stack.length < 2) {
-          throw new Error(`Not enough operands for function ${token}`);
+          throw new Error("NEO"); // Not enough operands for function
         }
         const rhs = stack.pop()!;
         const lhs = stack.pop()!;
@@ -63,11 +63,11 @@ export default class SYExpressionParser {
         continue;
       }
 
-      throw new Error(`Unknown token: ${token}`);
+      throw new Error(`UT${token}`);
     }
 
     if (stack.length !== 1) {
-      throw new Error("Invalid expression: too many operands");
+      throw new Error("IE"); // Invalid expression
     }
 
     return stack[0];

@@ -6,6 +6,7 @@ import AngleUnit from "./Units.js";
 
 let cursorPosition = 1;
 let isControlHeld = false;
+let error = false;
 
 const functionUnits = [
   "pow",
@@ -29,6 +30,12 @@ function button(input: string) {
 
     // Update the text based on the input
     let newText = text;
+
+    if (error) {
+      newText = "0";
+      error = false;
+    }
+
     if (input === "left") {
       console.log("Left");
       cursorPosition = Math.max(0, cursorPosition - 1);
@@ -98,8 +105,23 @@ function button(input: string) {
         const processedText = preprocessExpression(text);
 
         const tokens = ShuntingYard.parse(processedText);
-        const expression = SYExpressionParser.parseExpression(tokens);
+        let expression: any = null;
+        try {
+          expression = SYExpressionParser.parseExpression(tokens);
+        } catch (e) {
+          let err = (e as Error).message as string;
 
+          if (err.startsWith("UT")) {
+            newText = "Invalid Token: " + err.substring(2);
+          }
+          if (err.startsWith("NEO")) {
+            newText = "Not enough operands for function";
+          }
+          if (err.startsWith("IE")) {
+            newText = "Invalid expression";
+          }
+          error = true;
+        }
         if (expression instanceof CalculationExpression) {
           const result = (expression as CalculationExpression).calculate();
           newText = result.toString();
