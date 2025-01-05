@@ -94,7 +94,9 @@ function button(input: string) {
     } else if (input === "equals") {
       // Calculate the result
       if (text.length > 0) {
-        const tokens = ShuntingYard.parse(text);
+        const processedText = preprocessExpression(text);
+
+        const tokens = ShuntingYard.parse(processedText);
         const expression = SYExpressionParser.parseExpression(tokens);
 
         if (expression instanceof CalculationExpression) {
@@ -140,21 +142,15 @@ function button(input: string) {
       newText =
         text.slice(0, cursorPosition) + "/" + text.slice(cursorPosition);
       cursorPosition += 1;
+    } else if (input == "pow") {
+      newText =
+        text.slice(0, cursorPosition) + "^" + text.slice(cursorPosition);
+      cursorPosition += 1;
     } else {
       if (text != "0") {
-        // Check if multiplication symbol needed
-        if (needsMultiplicationSymbol(text.slice(0, cursorPosition), input)) {
-          newText =
-            text.slice(0, cursorPosition) +
-            "*" +
-            input +
-            text.slice(cursorPosition);
-          cursorPosition += input.length + 1;
-        } else {
-          newText =
-            text.slice(0, cursorPosition) + input + text.slice(cursorPosition);
-          cursorPosition += input.length;
-        }
+        newText =
+          text.slice(0, cursorPosition) + input + text.slice(cursorPosition);
+        cursorPosition += input.length;
       } else {
         newText = input;
         cursorPosition = input.length;
@@ -165,16 +161,26 @@ function button(input: string) {
   }
 }
 
-function needsMultiplicationSymbol(before: string, after: string): boolean {
-  // Check if last char of before is number and first char of after is letter or (
-  if (!before) return false;
-  const lastChar = before[before.length - 1];
-  const firstChar = after[0];
+function preprocessExpression(expression: string): string {
+  let result = "";
+  let i = 0;
 
-  return (
-    (/\d/.test(lastChar) && /[a-zA-Z(]/.test(firstChar)) ||
-    (lastChar === ")" && (/\d/.test(firstChar) || /[a-zA-Z(]/.test(firstChar)))
-  );
+  while (i < expression.length) {
+    if (i > 0) {
+      const before = expression[i - 1];
+      const current = expression[i];
+
+      if (
+        (/\d/.test(before) && /[a-zA-Z(]/.test(current)) ||
+        (before === ")" && /[\d(a-zA-Z]/.test(current))
+      ) {
+        result += "*";
+      }
+    }
+    result += expression[i];
+    i++;
+  }
+  return result;
 }
 
 function unit(unit: number) {
