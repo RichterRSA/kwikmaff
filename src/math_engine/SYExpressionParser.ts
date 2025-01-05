@@ -38,7 +38,7 @@ export default class SYExpressionParser {
 
       if (this.OPERATORS.includes(token)) {
         if (stack.length < 2) {
-          throw new Error(`Not enough operands for operator ${token}`);
+          throw new Error("NEO");
         }
         const rhs = stack.pop()!;
         const lhs = stack.pop()!;
@@ -74,7 +74,7 @@ export default class SYExpressionParser {
         continue;
       }
 
-      throw new Error(`UT${token}`);
+      throw new Error(`UT`);
     }
 
     if (stack.length !== 1) {
